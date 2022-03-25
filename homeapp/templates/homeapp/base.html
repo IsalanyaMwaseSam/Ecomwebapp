@@ -24,7 +24,7 @@ crossorigin="anonymous"></script>
 <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{% url 'home' %}"><i class="fa fa fa-home"></i>Home</a>
+        <a class="navbar-brand" href="/"><i class="fa fa fa-home"></i>Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,13 +57,13 @@ crossorigin="anonymous"></script>
     <div style="margin-top: 50px; margin-left: 50px; margin-right: 10px;"class="main-body">
         {% block content %}
             <div style="border-collapse: separate;" class="row">
-              {% for product in products %}
+              {% for product in product_list %}
               <div class="col-lg-3 col-sm-6 col-md-4">
                 <img width="208" heigt="208" class="thumbnail" src="{{product.imageURL}}">
                 <div style="width: 208px; height: 208px;" class="box-element product">
                   <h6><strong>{{product.name}}</strong></h6>
                   <hr>
-                  <a class="btn btn-outline-success" href="{% url 'cart' %}">View</a>
+                  <a class="btn btn-outline-success" href="{{ product.get_absolute_url }}">View</a>
                   <h4 style="display: inline-block; float: right;"> <strong>${{product.price|floatformat:2}}</strong></h4>
                 </div>
             
@@ -83,6 +83,7 @@ crossorigin="anonymous"></script>
               <li><a href="#">About Us</a></li>
             </ul>
           </div>
+         
           <div class="footer-col">
             <h4>Get Help</h4>
             <ul>

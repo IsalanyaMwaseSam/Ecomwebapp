@@ -1,13 +1,18 @@
 from django.urls import path
-from . import views
+from .views import (
+    HomeView,
+    CartView,
+    shop
+
+)
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('homeapp/', views.shop, name='homeapp'),
-    path('homeapp/cart', views.cart, name='cart')
+    path('', HomeView.as_view(), name='home'),
+    path('homeapp/', shop, name='homeapp'),
+    path('homeapp/cart/<slug>', CartView.as_view(), name='cart')
 
 ]
 if settings.DEBUG:
