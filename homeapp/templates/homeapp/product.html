@@ -1,0 +1,80 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+<style>
+    #Region{
+        margin-left: 30px;
+        margin-top: 30px; 
+        height: 40px; 
+        width: 300px; 
+        text-align: center;
+        border-color: orange;
+    }
+    #Towns{
+        margin-left: 30px;
+        margin-top: 30px; 
+        height: 40px; 
+        width: 300px; 
+        text-align: center;
+        border-color: orange;
+    }
+
+    
+    
+</style>
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+        <div class="card text-white bg-primary mb-3 animated"  id="card1">
+            <div class="card-header" style="text-align: center;">{{product.name}}</div>
+            <div class="card-body">
+                <!--<h4 class="card-title">Info card title</h4>-->
+                <a href="" style="text-align: center; color: white; margin-left: 120px;">Simillar Products</a>
+                <br />
+                <div class="rating" style="margin-left: 120px; margin-top: 20px;">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <a href="#" class="btn btn-info btn-lg" style="width: 70%; align-items: center; margin-top: 60px; margin-left: 50px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    Add To Cart
+                    </a>
+                    <div class="images">
+                    </div>
+            </div>
+            
+                
+        </div>
+    </div>
+
+    <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+        <div class="card text-white bg-primary mb-3 animated"  id="card2">
+            <div class="card-header">Derliveries And Returns</div>
+            <div class="card-body">
+                <!--<h4 class="card-title">Light card title</h4>-->
+                <p class="card-text">Choose Your Location</p>
+                <select id="Region">
+                    <option value="Western">Western Region</option>
+                    <option value="Eastern">Eastern Region</option>
+                    <option value="Northern">Northern Region</option>
+                    <option value="Central">Central Region</option>
+                    </select>
+                    <select id="Towns">
+                    <option value="Western">Western Region</option>
+                    <option value="Eastern">Eastern Region</option>
+                    <option value="Northern">Northern Region</option>
+                    <option value="Central">Central Region</option>
+                </select>
+                <br><br>
+                <p class="card-text">Seller's Information</p>
+    
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+{% load static %}

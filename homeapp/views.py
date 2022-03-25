@@ -12,7 +12,7 @@ class HomeView(ListView):
 
 class CartView(DetailView):
     model = Product
-    template_name = 'homeapp/cart.html'
+    template_name = 'homeapp/product.html'
 
 def shop(request):
     return render (request, 'homeapp/home.html', {})
