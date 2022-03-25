@@ -1,0 +1,17 @@
+{% extends 'homeapp/base.html' %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="form-group col-md-6 mb-0">
+          <div style="text-align: center; margin-top: 40px;" class="card">
+            <div class="card-body">
+    <!--<div class="border-top pt-3">-->
+              <small class="text-muted">
+                <h2>Do you still want to logout?</h2>
+                <a style="float: left; margin-left: 150px; margin-top: 70px;" class="btn btn-outline-secondary add-btn" href="{% url 'login' %}">Confirm</a>
+                <a style="float: right; margin-right: 150px; margin-top: 70px;"  class="btn btn-outline-secondary add-btn" href="{% url 'home' %}">Cancel</a>
+              </small>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock content %}
