@@ -17,7 +17,7 @@ class Product(models.Model):
         return reverse("homeapp:cart", kwargs={'slug': self.slug})
 
     def get_add_to_cart_url(self):
-        return reverse("homeapp:add-to-cart", kwargs={'slug': self.slug})
+        return reverse("homeapp:add_to_cart", kwargs={'slug': self.slug})
 
     @property
     def imageURL(self):
@@ -50,7 +50,7 @@ class OrderProduct(models.Model):
 
     
     def __str__(self):
-        return self.name
+        return f'{self.quantity} of {self.product.name}'
 
 
 class Order(models.Model):
