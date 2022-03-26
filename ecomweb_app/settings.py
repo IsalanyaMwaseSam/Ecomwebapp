@@ -84,17 +84,14 @@ AUTH_USER_MODEL = "account.Account"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecomdatabase',
-        'USER': 'samtech',
-        'PASSWORD': 'sammies1999',
-        'HOST': 'localhost',
+        'NAME': 'd9hcvbk783k80e',
+        'USER': 'sfifwxpttgibqe',
+        'PASSWORD': 'c315d9db63d81d575d2a75e76abb7d88a4499b559a1671fc1480b6a14828b67e',
+        'HOST': 'ec2-44-194-92-192.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
