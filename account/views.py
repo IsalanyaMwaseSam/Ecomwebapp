@@ -17,7 +17,7 @@ def registration(request):
             email =  request.POST['email']
             username = request.POST['username']
             raw_password =  request.POST['password1']
-            phonenumber =  request.POST.get['phonenumber']
+            phonenumber =  request.POST.get('phonenumber')
             Address_1 =  request.POST['Address_1']
             Address_2 =  request.POST['Address_2']
             user = Account.objects.create_user(first_name=first_name, other_names=other_names, email=email, username=username, password=raw_password, phonenumber=phonenumber, Address_1=Address_1, Address_2=Address_2)
