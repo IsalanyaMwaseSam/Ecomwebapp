@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from account.models import Account
 from django.views.generic import ListView, DetailView
+from django.utils import timezone
 from homeapp.models import *
 
 import account
@@ -27,8 +28,9 @@ def add_to_cart(request, slug):
             order_product.quantity += 1
             order_product.save()
         else:
-            order = Order.objects.create(user=request.user)
+            order_date = timezone.now
+            order = Order.objects.create(user=request.user, order_date=order_date)
             order.products.add(order_product)
-            return redirect("homeapp:cart", kwargs={'slug': slug})
+            return redirect("homeapp:cart",slug=slug)
 
 
