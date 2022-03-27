@@ -84,10 +84,10 @@ AUTH_USER_MODEL = "account.Account"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd9hcvbk783k80e',
-        'USER': 'sfifwxpttgibqe',
-        'PASSWORD': 'c315d9db63d81d575d2a75e76abb7d88a4499b559a1671fc1480b6a14828b67e',
-        'HOST': 'ec2-44-194-92-192.compute-1.amazonaws.com',
+        'NAME': 'dcmag8ql4tqttu',
+        'USER': 'wiadbrlovshpzd',
+        'PASSWORD': 'ad9e77a7a319d2815d41ad8e689dbeee3253fb4c141204189f91c4ef44652e4f',
+        'HOST': 'ec2-18-215-96-22.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
