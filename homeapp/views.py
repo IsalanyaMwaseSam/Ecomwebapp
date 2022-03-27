@@ -32,5 +32,7 @@ def add_to_cart(request, slug):
             order = Order.objects.create(user=request.user, order_date=order_date)
             order.products.add(order_product)
             return redirect("homeapp:cart",slug=slug)
+    else:
+        return redirect("homeapp:cart",slug=slug)
 
 
