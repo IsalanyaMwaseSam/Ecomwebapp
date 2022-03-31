@@ -36,3 +36,4 @@ def add_to_cart(request, slug):
         return redirect("homeapp:cart",slug=slug)
 
 
+
