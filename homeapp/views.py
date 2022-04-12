@@ -20,7 +20,7 @@ def shop(request):
 
 def add_to_cart(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    order_product = OrderProduct.objects.create(product=product)
+    order_product = OrderProduct.objects.get_or_create(product=product)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
