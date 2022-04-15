@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from homeapp.models import *
 
+
 import account
 
 
@@ -20,20 +21,40 @@ def shop(request):
 
 def add_to_cart(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    order_product = OrderProduct.objects.get_or_create(product=product)
+    order_product, created = OrderProduct.objects.get_or_create(product=product,
+        user=request.user,
+        ordered=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
-        if order.items.filter(product_slug=product.slug).exists():
+        if order.products.filter(product__slug=product.slug).exists():
             order_product.quantity += 1
             order_product.save()
         else:
-            order_date = timezone.now
-            order = Order.objects.create(user=request.user, order_date=order_date)
             order.products.add(order_product)
-            return redirect("homeapp:cart",slug=slug)
+            
     else:
-        return redirect("homeapp:cart",slug=slug)
+        ordered_date = timezone.now()
+        order = Order.objects.create(user=request.user, ordered_date=ordered_date)
+        order.products.add(order_product)
+    return redirect("homeapp:cart",slug=slug)
+   
+def remove_from_cart(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.products.filter(product__slug=product.slug).exists():
+            order_product = OrderProduct.objects.filter(product=product,
+                user=request.user,
+                ordered=False)[0]
+            order.products.remove(order_product)
+        else:
+            return redirect("homeapp:cart",slug=slug) 
+            
+    else:
+        return redirect("homeapp:cart",slug=slug)    
+    return redirect("homeapp:cart",slug=slug)
 
 
 

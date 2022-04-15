@@ -19,6 +19,9 @@ class Product(models.Model):
     def get_add_to_cart_url(self):
         return reverse("homeapp:add-to-cart", kwargs={'slug': self.slug})
 
+    def get_remove_from_cart_url(self):
+        return reverse("homeapp:remove-from-cart", kwargs={'slug': self.slug})
+
     @property
     def imageURL(self):
         try:
@@ -44,7 +47,8 @@ class Cart(models.Model):
         return url
 
 class OrderProduct(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
@@ -57,8 +61,11 @@ class OrderProduct(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     products = models.ManyToManyField(OrderProduct)
-    order_date = models.DateTimeField()
+    ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
 
 
     
