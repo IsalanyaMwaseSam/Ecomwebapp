@@ -4,7 +4,7 @@ Host github.com
   User git
   IdentityFile ~/.ssh/id_rsa
 
-Host github-ewebap
+Host github.com-ewebap
   HostName github.com
   User git
   IdentityFile ~/.ssh/id_rsa_ewebap
