@@ -58,17 +58,8 @@ crossorigin="anonymous"></script>
   
 
         {% block content %}
-        <div class="categories" style="margin-top: 40px; margin-left: 50px;">
-          <div class="row">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white " data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">Categories</h6>
-                </a>
-            </div>
-          </div>
-        </div>
            
-        <div id="header-carousel" class="carousel slide" data-ride="carousel" style="margin: 20px; margin-left: 400px;">
+        <div id="header-carousel" class="carousel slide" data-ride="carousel" style="margin: 20px; margin-left: 30px;">
           <div class="carousel-inner">
               <div class="carousel-item active" style="height: 410px;">
                   <img style="margin-left: 30px;"width=100% length=80% class="img-fluid" src="static/images/ba.jpeg" alt="Image">
@@ -78,12 +69,10 @@ crossorigin="anonymous"></script>
               </div>
           </div>
         </div>
-        <br>
-        <br>
             
-        <div style="border-collapse: separate; margin-left: 50px; margin-right: 10px;" class="row">
+        <div style="border-collapse: separate; margin-left: 30px; margin-right: 10px;" class="row">
           {% for product in product_list %}
-          <div class="col-lg-3 col-sm-6 col-md-4">
+          <div class="col-lg-3 col-sm-3 col-md-4">
             <div class="card product-item border-0 mb-4">
               <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                 <img width="208" heigt="208" class="card-img-top" src="{{product.imageURL}}">
