@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'phonenumber_field',
     'homeapp',
     'account',
 ]
@@ -84,10 +83,10 @@ AUTH_USER_MODEL = "account.Account"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dcmag8ql4tqttu',
-        'USER': 'wiadbrlovshpzd',
-        'PASSWORD': 'ad9e77a7a319d2815d41ad8e689dbeee3253fb4c141204189f91c4ef44652e4f',
-        'HOST': 'ec2-18-215-96-22.compute-1.amazonaws.com',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'Sammies1999',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -134,6 +133,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_URL = 'staticfiles/'
 
 MEDIA_URL = '/images/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'static')

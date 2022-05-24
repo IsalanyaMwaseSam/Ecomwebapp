@@ -1,13 +1,13 @@
 import email
 from django.db import models
 from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
+#from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 
 class MyAccountManager(BaseUserManager):
-    def _create_user(self, email, username, password, first_name, other_names, phonenumber, Address_1, Address_2):
+    def _create_user(self, email, username, password, first_name, other_names, Address_1, Address_2):
         if not email:
             raise ValueError("User must have an email")
         if not username:
@@ -16,15 +16,15 @@ class MyAccountManager(BaseUserManager):
         user = self.model(
                email = self.normalize_email(email),
                username = username, password=password, first_name = first_name, other_names = other_names,
-               phonenumber = phonenumber, Address_1 = Address_1, Address_2 = Address_2
+               Address_1 = Address_1, Address_2 = Address_2
             )   
 
         user.set_password(password)
         user.save(using=self._db)
         return user 
 
-    def create_user(self, email, username, password, first_name=None, other_names=None, phonenumber=None, Address_1=None, Address_2=None):
-        return self._create_user(email, username, password,first_name, other_names, phonenumber, Address_1, Address_2)
+    def create_user(self, email, username, password, first_name=None, other_names=None, Address_1=None, Address_2=None):
+        return self._create_user(email, username, password,first_name, other_names, Address_1, Address_2)
 
     def create_superuser(self, email, username, password):
         """
@@ -45,7 +45,7 @@ class MyAccountManager(BaseUserManager):
 class Account(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(verbose_name='first_name', max_length=60, null=True)
     other_names = models.CharField(verbose_name='other_names', max_length=200, null=True)
-    phonenumber = PhoneNumberField(verbose_name='phonenumber', null=True)
+    #phonenumber = PhoneNumberField(verbose_name='phonenumber', null=True)
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = models.CharField(max_length=60, unique=True)
     Address_1 = models.CharField(max_length=60, blank=False, null=True)
