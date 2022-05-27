@@ -36,7 +36,7 @@ crossorigin="anonymous"></script>
               <a class="nav-link" href="{% url 'homeapp:cart' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
               </svg>
-              <span class="badge red z-depth-1 mr-1"></span>
+              <span class="badge red z-depth-1 mr-1"> </span>
               Cart</a>
             </li>
             <li class="nav-item">
@@ -48,7 +48,7 @@ crossorigin="anonymous"></script>
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-item nav-link" href="#"><i class="fa fa fa-user">{{ user.username }}</i></a>
+              <a style="text-transform: lowercase;" class="nav-item nav-link" href="#"><i class="fa fa fa-user">Hi {{ user.username }}</i></a>
             </li>
             <li class="nav-item">
               <a class="nav-item nav-link " href="{% url 'logout' %}">Logout</a>
@@ -66,58 +66,64 @@ crossorigin="anonymous"></script>
   
 
         {% block content %}
-           
-        <div id="header-carousel" class="carousel slide" data-ride="carousel" style="margin: 20px; margin-left: 10px;">
-          <div class="carousel-inner">
-              <div class="carousel-item active" style="height: 410px;">
-                  <img style="margin-left: 30px;"width=80% length=80% class="img-fluid" src="static/images/ba.jpeg" alt="Image">
-              </div>
-              <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div class="p-3" style="max-width: 700px;">
-                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+        <div class="container-fluid pt-5">
+          <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+              <div id="header-carousel" class="carousel slide" data-ride="carousel" style="margin: 20px; margin-left: 10px;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" style="height: 410px;">
+                        <img style="margin-left: 30px;"width=80% length=80% class="img-fluid" src="static/images/ba.jpeg" alt="Image">
+                    </div>
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                      <div class="p-3" style="max-width: 700px;">
+                          <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                          <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
+                          <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                      </div>
+                    </div>
+                    <div class="carousel-item" style="height: 410px;">
+                        <img style="margin-left: 30px;" width=80% length=80% class="img-fluid" src="static/images/back.jpeg" alt="Image">
+                    </div>
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="margin-top: 10px;">
+                      <div class="p-3" style="max-width: 700px;">
+                          <h4 class="text-light text-uppercase font-weight-medium mb-3" >10% Off Your First Order</h4>
+                          <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
+                          <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                      </div>
+                    </div>
                 </div>
-              </div>
-              <div class="carousel-item" style="height: 410px;">
-                  <img style="margin-left: 30px;" width=80% length=80% class="img-fluid" src="static/images/back.jpeg" alt="Image">
-              </div>
-              <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="margin-top: 10px;">
-                <div class="p-3" style="max-width: 700px;">
-                    <h4 class="text-light text-uppercase font-weight-medium mb-3" >10% Off Your First Order</h4>
-                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                </div>
-              </div>
-          </div>
-        </div>
-        <div class="row">
-          {% for product in product_list %}
-          <div class="col-sm-12 col-md-6 col-lg-3 pb-4">
-            <div class="card h-100" style="border:none">
-              <img class="card-img-top" style="width: auto; height: 250px; object-fit: scale-down; margin-left: 5px;" src="{{product.image1URL}}">
-              <div class="card-body">
-                <a href="">
-                  <span class="badge purple mr-1">{{ product.get_category_display }}</span>
-                </a>
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p  class="card-text">
-                  {% if product.discount_price %}
-                  <span class="mr-1">
-                    <del style="color: red;">${{ product.price }}</del>
-                  </span>
-                  <span>${{ product.discount_price }}</span>
-                  {% else %}
-                  <span>${{ product.price }}</span>
-                  {% endif %}
-                </p>
-                <a href="{{ product.get_absolute_url }}" class="btn btn-warning">Buy</a>
               </div>
             </div>
+          </div>
+        </div>
+          <div class="row">
+            {% for product in product_list %}
+            <div class="col-sm-3 col-md-6 col-lg-3 pb-4">
+              <div class="card h-100" style="border:none">
+                <img class="card-img-top" style="width: auto; height: 250px; object-fit: scale-down; margin-left: 5px;" src="{{product.image1URL}}">
+                <div class="card-body" style="margin-left: 50px;">
+                  <a href="">
+                    <span class="badge purple mr-1">{{ product.get_category_display }}</span>
+                  </a>
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p  class="card-text">
+                    {% if product.discount_price %}
+                    <span class="mr-1">
+                      <del style="color: red;">${{ product.price }}</del>
+                    </span>
+                    <span>${{ product.discount_price }}</span>
+                    {% else %}
+                    <span>${{ product.price }}</span>
+                    {% endif %}
+                  </p>
+                  <a href="{{ product.get_absolute_url }}" class="btn btn-warning">Buy</a>
+                </div>
+              </div>
+              
+            </div>
+            {% endfor %}
             
           </div>
-          {% endfor %}
-        </div>
         {% endblock %}
     
     <footer class="footer" style="margin-top: 50px;" width="100%">

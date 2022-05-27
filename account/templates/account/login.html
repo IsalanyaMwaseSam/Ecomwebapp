@@ -2,7 +2,11 @@
 
 {% load crispy_forms_tags %}
 
+
 {% block content %}
+  {% for message in messages %}
+  <div style="width: 30%; margin-top: 20px; margin-left: 200px;" class="alert alert-success" role="alert">{{message}}</div>
+  {% endfor %}
   <form style="margin-left: 20px; margin-top: 20px; margin-right: 20px;" method="post">
     {% csrf_token %}
     <div class="row justify-content-center">
@@ -12,7 +16,8 @@
             {{ form.username|as_crispy_field }}
             {{ form.password|as_crispy_field }}
             <input class="btn btn-primary" href="/" type="submit" value="Login">
-            <a href="#">Forgot Password</a>
+            <a href="#">Forgot Password?</a>
+            <a style="margin-left: 20px;" href="{% url 'registration' %}">Create Acccount</a>
             </div>
           </div>
         </div>

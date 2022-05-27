@@ -8,6 +8,7 @@ from homeapp.models import *
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -20,6 +21,7 @@ class CartView(DetailView):
     template_name = 'homeapp/product.html'
 
 class shopView(LoginRequiredMixin, View):
+    login_url='/account/login/'
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
@@ -30,6 +32,7 @@ class shopView(LoginRequiredMixin, View):
         except ObjectDoesNotExist:
             return redirect("/")
 
+@login_required(login_url='/account/login/')
 def add_to_cart(request, slug):
     product = get_object_or_404(Product, slug=slug)
     order_product, created = OrderProduct.objects.get_or_create(product=product,
@@ -47,7 +50,6 @@ def add_to_cart(request, slug):
             order.products.add(order_product)
             messages.info(request, "This item was added to your cart.")
             return redirect("homeapp:product", slug=slug)
-            
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
@@ -65,13 +67,15 @@ def remove_from_cart(request, slug):
                 ordered=False)[0]
             order.products.remove(order_product)
         else:
+            messages.info(request, "This item was not in your cart")
             return redirect("homeapp:product",slug=slug) 
             
     else:
+        messages.info(request, "This item was not in your cart")
         return redirect("homeapp:cart",slug=slug)    
     return redirect("homeapp:product",slug=slug)
 
-#@login_required
+@login_required
 def remove_single_product_from_cart(request, slug):
     product = get_object_or_404(Product, slug=slug)
     order_qs = Order.objects.filter(

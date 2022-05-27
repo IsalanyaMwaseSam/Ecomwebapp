@@ -25,22 +25,22 @@ def registration(request):
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
         try:
-            user = Account.objects.get(username=username)
+            user = Account.objects.get(email=email)
         except:
-            messages.error(request, 'username does not exist')
+            messages.error(request, 'email does not exist')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Invalid Username Or Password')
+            messages.error(request, 'Invalid email Or Password')
     return render(request, 'account/login.html')
 
 
