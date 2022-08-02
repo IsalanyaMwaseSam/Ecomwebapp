@@ -1,9 +1,8 @@
-from urllib import request
 from django.shortcuts import redirect, render, get_object_or_404
 from account.models import Account
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
-from homeapp.forms import SearchForm
+from homeapp.forms import BillingForm, SearchForm
 from homeapp.models import *
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,6 +14,10 @@ from django.contrib.auth.decorators import login_required
 class HomeView(ListView):
     model = Product
     template_name = 'homeapp/home.html'
+    paginate_by = 8
+
+    def flashsales(request):
+        return render(request, 'homeapp/home.html', {})
 
 class CartView(DetailView):
     model = Product
@@ -105,4 +108,25 @@ def remove_single_product_from_cart(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("homeapp:product", slug=slug)
 
+def checkout(request):
+    return render(request, 'homeapp/checkout.html', {})
 
+def billing(request):
+    form = BillingForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {
+        'form': form
+    }
+    return render(request, 'homeapp/billing.html', context)
+
+def credit_card(request):
+    return render(request, 'homeapp/credit_card.html', {})
+
+def bank(request):
+    return render(request, 'homeapp/bank.html', {})
+
+def wallet(request):
+    instance = Balance(user = request.user, balance=0)
+    instance.save()
+    return render(request, 'homeapp/wallet.html', {"balance":instance.balance})

@@ -1,3 +1,4 @@
+from django import views
 from django.urls import path
 from .views import (
     HomeView,
@@ -20,6 +21,12 @@ urlpatterns = [
     path('homeapp/remove-from-cart/<slug>', remove_from_cart, name='remove-from-cart'),
     path('homeapp/cart', shopView.as_view(), name='cart'),
     path('remove-product-from-cart/<slug>/', remove_single_product_from_cart, name='remove-single-product-from-cart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('billing/', views.billing, name='billing'),
+    path('credit_card/', views.credit_card, name='credit_card'),
+    path('bank/', views.bank, name='bank'),
+    path('wallet/', views.wallet, name='wallet'),
+   
    
 
    

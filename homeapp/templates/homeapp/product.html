@@ -71,60 +71,78 @@
       <hr>
 
       <!--Grid row-->
-      <div class="row d-flex justify-content-center wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-md-6 text-center">
-          <div class="card">
-            <h4 class="card-header">Product Details</h4>
-            <ul>
-              <p>
-                Characteristics:<br>
-                <li class="list-item-group">{{ product.Characteristics }}</li>
-              </p>
+  </main>
+  <div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+      <div class="col-lg-8 table-responsive mb-5">
+        <div id="header-carousel" class="carousel slide" data-ride="carousel" style="width: 30%; ">
+          <div class="carousel-inner">
+          <div class="carousel-item active" >
+          <img class="img-fluid" src="{{product.image2URL}}" alt="Image">
           </div>
-          <br>
-          <div class="card">
-              <h4 class="card-header">Key Features</h4>
-                <li class="list-item-group">{{ product.description }}</li>
-              
+          <div class="carousel-item" >
+          <img class="img-fluid" src="{{product.image3URL}}" alt="Image">
           </div>
-          <br>
-          <div class="card">
-              <h4 class="card-header">Specifications</h4>
-                <li class="list-item-group">{{ product.specifications }}</li>
-              
-            </ul>
+          <div class="carousel-item" >
+          <img class="img-fluid" src="{{product.image4URL}}" alt="Image">
           </div>
-        
-        </div>
-        <!--Grid column-->
-
-      </div>
-      <!--Grid row-->
-
-      <div id="header-carousel" class="carousel slide" data-ride="carousel" style="width: 30%;">
-        <div class="carousel-inner">
-            <div class="carousel-item active" >
-                <img   class="img-fluid" src="{{product.image2URL}}" alt="Image">
-            </div>
-            <div class="carousel-item" >
-                <img  class="img-fluid" src="{{product.image3URL}}" alt="Image">
-            </div>
-            <div class="carousel-item" >
-                <img  class="img-fluid" src="{{product.image4URL}}" alt="Image">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
-        </a>
+          </a>
+        </div>  
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <h4 style="background-color: blue; color: white;" class="card-header">Seller's Details</h4>
+          <div class="card-body">
+            <div class="navbar-nav w-100 overflow-hidden">
+              {% for instance in queryset %}
+              <a href="" class="nav-item nav-link">Sold by {{ instance.seller }}</a>
+              <a href="" class="nav-item nav-link">Contact {{ instance.seller }}</a>
+              {% endfor %}
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a style="margin-left: 20px;" href="#"><i class="fab fa-instagram"></i></a>
+                <a style="margin-left: 20px;" href="#"><i class="fab fa-whatsapp"></i></a>
+                <a style="margin-left: 20px;" href="#"><i class="fab fa-twitter"></i></a>
+              </div>
+              <a href="" class="nav-item nav-link">Other Products sold by the same seller</a>
+              <a href="" class="nav-item nav-link">Location</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8" style="padding-top: 20px;">
+        <div class="card">
+          <h4 style="background-color: blue; color: white; " class="card-header">Product Details</h4>
+          <ul>
+          <p>
+          <h4 style="background-color: blue; color: white;" class="card-header">Characteristics</h4>
+          <li class="list-item-group">{{ product.Characteristics }}</li>
+          </p>
+          </div>
+          <br>
+          <div class="card">
+          <h4 style="background-color: blue; color: white;" class="card-header">Key Features</h4>
+          <li class="list-item-group">{{ product.description }}</li>
+          </div>
+          <br>
+          <div class="card">
+          <h4 style="background-color: blue; color: white;" class="card-header">Specifications</h4>
+          <li class="list-item-group">{{ product.specifications }}</li>
+          </ul>
+        </div>
+      </div>
+      
     </div>
-  </main>
+    <a style="margin-top: 40px; margin-left: 40px;" href="{% url 'homeapp:home' %}" class="btn btn-success">Continue Shopping</a>
+  </div>
 
 {% endblock %}
 

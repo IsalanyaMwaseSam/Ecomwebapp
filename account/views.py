@@ -15,33 +15,18 @@ def registration(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(email=email, password=password)
+            login(request, user)
             messages.success(request, ('Your account was successfully created!'))
-            return redirect('home')
+            return redirect('/')
         else:
             messages.error(request, ('Invalid input.'))
     else:
         form = RegistrationForm()
     return render(request, 'account/register.html', {'form': form})
 
-def login(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
-
-        try:
-            user = Account.objects.get(email=email)
-        except:
-            messages.error(request, 'email does not exist')
-
-        user = authenticate(request, email=email, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'Invalid email Or Password')
-    return render(request, 'account/login.html')
-
-
+def userpage(request):
+    return render(request, 'homeapp/userpage.html', {})
 

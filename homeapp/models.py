@@ -1,3 +1,5 @@
+from audioop import add
+from termios import TIOCGWINSZ
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
 from django.conf import settings
@@ -14,11 +16,19 @@ CATEGORY_CHOICES = (
     ('HO', 'Home & Office'),
 )
 
+LABEL_CHOICES = (
+    ('P', 'Primary'),
+    ('S', 'Secondary'),
+    ('D', 'Danger'),
+)
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True)
+    seller = models.CharField(max_length=200, blank=True, null=True)
     discount_price = models.FloatField(blank=True, null=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2, null=True)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=2, null=True)
     image1 = models.ImageField(null=True, blank=True)
     image2 = models.ImageField(null=True, blank=True)
     image3 = models.ImageField(null=True, blank=True)
@@ -106,9 +116,8 @@ class OrderProduct(models.Model):
         return self.get_total_product_price() - self.get_total_discount_product_price()
 
     def get_final_price(self):
-        if self.product.discount_price:
-            return self.get_total_discount_product_price()
-        return self.get_total_product_price()
+        return self.get_total_discount_product_price()
+
 
 
 class Order(models.Model):
@@ -126,6 +135,25 @@ class Order(models.Model):
         total = 0
         for order_product in self.products.all():
             total += order_product.get_final_price()
-        if self.coupon:
-            total -= self.coupon.amount
         return total
+
+class FlashSales(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.product}'
+
+    class Meta:
+        verbose_name_plural = 'Flash sales'
+
+class Balance(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    balance = models.IntegerField(default=0)
+
+class Billing(models.Model):
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    other_names = models.CharField(max_length=50, null=True, blank=True)
+    phone_number = models.IntegerField(null=True, blank=True)
+    town = models.CharField(max_length=100, null=True, blank=True)
+    address = models.CharField(max_length=100, null=True, blank=True)

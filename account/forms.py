@@ -17,10 +17,11 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'email'}), help_text='Required. Add a valid email address')
     Address_1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Country'}))
     Address_2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Region, City'}))
+    is_seller = forms.BooleanField(widget=forms.CheckboxInput)
 
     class Meta:
         model = Account
-        fields = ('first_name', 'other_names', 'email', 'username', 'password1', 'password2', 'Address_1', 'Address_2')
+        fields = ('first_name', 'other_names', 'email', 'username', 'password1', 'password2', 'Address_1', 'Address_2', 'is_seller')
 
 
 

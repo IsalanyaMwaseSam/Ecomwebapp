@@ -1,0 +1,98 @@
+{% extends 'homeapp/base.html' %}
+{% load static %}
+{% block content %}
+{% for message in messages %}
+<div style="width: 30%; margin-top: 20px; margin-left: 200px;" class="alert alert-success" role="alert">{{message}}</div>
+{% endfor %}
+{% if user.is_authenticated %}
+<div class="container-fluid pt-5">
+  <div class="row px-xl-5">
+    <div class="card border-secondary mb-5">
+        <div style="background-color: green; color: white;" class="card-header border-0">
+            <h4 class="font-weight-semi-bold m-0">My Cart</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-3 pt-1">
+                <h6 class="font-weight-medium">Subtotal</h6>
+                <h6 class="font-weight-medium">${{ order.get_total }}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Payment</h6>
+                <a href="#">
+                  <span class="badge badge-pill danger-color">NOT PAID</span>
+                </a>
+                
+            </div>
+        </div>
+        <div class="card-footer border-secondary bg-transparent">
+            <div class="d-flex justify-content-between mt-2">
+                <h5 class="font-weight-bold">Total</h5>
+                <h5 class="font-weight-bold">${{ order.get_total }}</h5>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-bold">NB:</h6>
+                <h6 style="font-style: italic;" class="font-weight-medium">Shipping fees not yet included</h6>
+            </div>  
+        </div>
+        
+        
+    </div>
+    
+    <div class="row px-xl-5">
+      <div class="card border-secondary mb-5">
+        <div style="background-color: green; color: white;" class="card-header border-0">
+            <h4 class="font-weight-semi-bold m-0">Payment Method</h4>
+        </div>
+        <div class="card-body">
+            <a style="width: 200px;" href="{% url 'homeapp:checkout' %}" class="btn btn-primary"><i style="margin-right: 5px;" class="fa fa-usd"></i>Mobile Money</a>
+            <a style="margin-left: 40px; width: 200px;" href="{% url 'homeapp:credit_card' %}" class="btn btn-primary">Credit Card</a>
+            <a style="margin-left: 40px; width: 200px;" href="{% url 'homeapp:bank' %}" class="btn btn-primary"><i style="margin-right: 5px;" class="fa fa-bank"></i>Banking</a>
+            <div class="text">
+                <h6 style="margin-top: 15px; text-align: center;"><b>Still Under Maintenance</b></h6>
+            </div>
+            <div class="card-header" style="background-color: skyblue; color: white;">
+                <h6 style="text-align: center;">Thank you {{user.first_name}} {{user.other_names}} for choosing us!</h6>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="row px-xl-5">
+    <div class="card border-secondary mb-5">
+        <div style="background-color: green; color: white;" class="card-header border-0">
+            <h4 class="font-weight-semi-bold m-0">My Billing Information</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-3 pt-1 ">
+                <h6 class="font-weight-medium">Name:</h6>
+                <h6 class="font-weight-medium">{{user.username}}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Email:</h6>
+                <h6 class="font-weight-medium">{{user.email}}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Phone:</h6>
+                <h6 class="font-weight-medium"></h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Town:</h6>
+                <h6 class="font-weight-medium"></h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Address:</h6>
+                <h6 class="font-weight-medium">{{user.Address_1}}</h6>
+            </div>
+            <a style="float: right; background-color: green; margin-top: 10px;" href="{% url 'homeapp:billing' %}" class="btn btn-primary">Edit<i style="margin-left: 5px;" class="fa fa-edit"></i></a>
+            
+        </div>
+        
+    </div>
+</div>
+{% else %}
+
+{% endif%}
+{% endblock %}

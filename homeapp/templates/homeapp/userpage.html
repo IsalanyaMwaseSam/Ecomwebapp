@@ -1,0 +1,74 @@
+{% extends 'homeapp/base.html' %}
+{% load static %}
+{% block content %}
+<div style="margin-top: 20px; width: 80%; margin-left: 50px;" class="card">
+  <div style="background-color: orange; color: white; " class="card-header">
+   <h4 style="text-align: center;">{{ user.username }}'s Details</h4>
+  </div>
+  <div class="card-body">
+   <form method="post" action="">
+    {% csrf_token %}
+    <div class="contact-form">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="fname">Name:</label>
+          <div class="col-sm-10">          
+            <input readonly type="text" class="form-control" value="{{ user.first_name }} {{ user.other_names }}" name="Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="email">Email:</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" value="{{ user.email }}" name="Email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="phonenumber">Phone Number:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" value="{{ user.phonenumber }}" name="phonenumber">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="image">Profile:</label>
+          <div class="col-sm-10">          
+            <input type="file" name="image2" accept="image/*" class="clearablefileinput form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="password">Change Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" value="input new Password" name="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="password">Confirm New  Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" value="confirm new Password" name="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="text">Address:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" value="{{ user.Address }}" name="address">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="text">Town:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" value="{{ user.Town }}" name="address">
+          </div>
+        </div>
+        <div class="form-group">        
+          <div class="col-sm-offset-2 col-sm-10">
+            <input style="width: 40%;" type="buttton" class="btn btn-primary" value="Update Profile">
+          </div>
+        </div>
+    </div>
+   </form>
+  </div>
+</div>
+<div>
+  <a style="text-decoration: none; margin-left: 100px; padding-top: 40px;" href="{% url 'sell' %}">Sell Your Products With STouch</a>
+</div>
+
+
+{% endblock %}

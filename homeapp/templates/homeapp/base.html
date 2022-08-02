@@ -1,4 +1,5 @@
 {% load static %}
+{% load cart_template_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,7 @@
 
 <!-- Primary Meta Tags -->
 <title>
-    Ecommerce Site
+    STouch Ecommerce
 </title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,33 +23,73 @@
 crossorigin="anonymous"></script>
 
 </head>
+
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/"><i class="fa fa fa-home"></i>Home</a>
+  <style>
+    @media only screen and (max-width: 1024px){
+      .carousel-item img{
+        width: 100%;
+      }
+    }
+  </style>    
+    <nav style="position: sticky;" class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="navbar-brand" href="/"><i class="fa fa fa-home"></i>Home</a>
+        </li>
+        <li class="nav-item">
+          <form  action="" method="POST">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for Products, Category">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-transparent text-primary">                                           
+                        <i style="color: white;" class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+          </form>
+        </li>
+      </ul>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+      
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'homeapp:cart' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+              <a class="nav-link" href="{% url 'homeapp:cart' %}">
+                <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_product_count }}<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-              </svg>
-              <span class="badge red z-depth-1 mr-1"> </span>
-              Cart</a>
+              </svg></span>
+              </a>
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'homeapp:wallet' %}">
+                <i class="fa fa-wallet" style="margin-right: 5px;" ></i>Wallet
+              </a>
+            </li>
+            {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'registration' %}">
                 SignUp
               </a>
             </li>
+            {% endif %}
+            {% if user.is_admin and user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">
+                Admin
+              </a>
+            </li>
+            {% endif %}  
           </ul>
+          
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a style="text-transform: lowercase;" class="nav-item nav-link" href="#"><i class="fa fa fa-user">Hi {{ user.username }}</i></a>
+              <a style="text-transform: lowercase;" class="nav-item nav-link" href="{% url 'userpage' %}"><i style="margin-right: 3px;" class="fa fa fa-user"></i>Hi {{ user.username }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-item nav-link " href="{% url 'logout' %}">Logout</a>
@@ -94,18 +135,71 @@ crossorigin="anonymous"></script>
                 </div>
               </div>
             </div>
+            <div class="col-lg-3 d-none d-lg-block">
+              <a style="margin-top: 20px;" class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                <h6 class="m-0">Categories</h6>
+              </a>
+              <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0  border-top-0 border-bottom-1" id="navbar-vertical">
+                <div class="navbar-nav w-100 overflow-hidden">
+                  <a href="" class="nav-item nav-link">Fashion</a>
+                  <a href="" class="nav-item nav-link">Health & Beauty</a>
+                  <a href="" class="nav-item nav-link">Electronics</a>
+                  <a href="" class="nav-item nav-link">Sports</a>
+                  <a href="" class="nav-item nav-link">Home & office</a>
+                  <a href="" class="nav-item nav-link">Gardening</a>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h4 style="background-color: orange; color: white; text-align: center;" class="card-header">Flash Sales</h4>
+          <div class="card-body">
+            {% for product in flashsales %}
+            <div class="row">
+              <div class="col-sm-3 col-md-6 col-lg-3 pb-4">
+                <div class="card h-100" style="border:none">
+                  <a href="{{ product.get_absolute_url }}"><img class="card-img-top" style="width: auto; height: 250px; object-fit: scale-down; margin-left: 5px;" src="{{product.image1URL}}"></a>
+                  <div class="card-body" style="margin-left: 50px;">
+                    <a href="">
+                      <span class="badge purple mr-1">{{ product.get_category_display }}</span>
+                    </a>
+                    <a href="">
+                      <span class="badge badge-pill {{ product.get_label_display  }}-color">New</span>
+                    </a>
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p  class="card-text">
+                      {% if product.discount_price %}
+                      <span class="mr-1">
+                        <del style="color: red;">${{ product.price }}</del>
+                      </span>
+                      <span>${{ product.discount_price }}</span>
+                      {% else %}
+                      <span>${{ product.price }}</span>
+                      {% endif %}
+                    </p>
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-warning">Buy</a>
+                  </div>
+                </div>
+                
+              </div>       
+            </div>
+            {% endfor %}
           </div>
         </div>
           <div class="row">
             {% for product in product_list %}
-            <div class="col-sm-3 col-md-6 col-lg-3 pb-4">
+            <div class="col-sm-1 col-md-3 col-lg-3 pb-4">
               <div class="card h-100" style="border:none">
                 <img class="card-img-top" style="width: auto; height: 250px; object-fit: scale-down; margin-left: 5px;" src="{{product.image1URL}}">
                 <div class="card-body" style="margin-left: 50px;">
                   <a href="">
-                    <span class="badge purple mr-1">{{ product.get_category_display }}</span>
+                    <span  class="badge purple mr-1">{{ product.get_category_display }}</span>
                   </a>
-                  <h5 class="card-title">{{ product.name }}</h5>
+                  <a href="">
+                    <span class="badge badge-pill {{ product.get_label_display  }}-color">New</span>
+                  </a>
+                  <h6 class="card-title">{{ product.name }}</h6>
                   <p  class="card-text">
                     {% if product.discount_price %}
                     <span class="mr-1">
@@ -121,9 +215,38 @@ crossorigin="anonymous"></script>
               </div>
               
             </div>
-            {% endfor %}
-            
+            {% endfor %}          
           </div>
+          {% if is_paginated %}
+            <nav class="d-flex justify-content-center wow fadeIn">
+              <ul class="pagination pg-blue">
+
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                {% endif %}
+
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+            </nav>
+          {% endif %}
         {% endblock %}
     
     <footer class="footer" style="margin-top: 50px;" width="100%">
@@ -134,7 +257,7 @@ crossorigin="anonymous"></script>
             <ul>
               <li><a href="#">About Us</a></li>
               <li><a href="#">Our Services</a></li>
-              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
             </ul>
           </div>
          
@@ -150,12 +273,19 @@ crossorigin="anonymous"></script>
               <div class="social-links">
                   <a href="#"><i class="fab fa-facebook-f"></i></a>
                   <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-whatsapp"></i></a>
                   <a href="#"><i class="fab fa-linkedin-in"></i></a>
               </div>
           </div>
-        </div>
 
+          <div style="margin-top: 40px;" class="copyright">
+                <p style="color: white; margin-left: 20px;">
+                    &copy; <a style="color: white; text-decoration: none;" href="#">ecomwebap</a>. All Rights Reserved. 
+                    <a  style="margin-left: 48px; color: white; text-decoration: none;" href="#"><br>Designed
+                      by: SamTouch Technologies</a>
+                </p>
+        </div>
+        </div>
       </div>
     </footer>
 

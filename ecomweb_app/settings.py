@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+from re import template
 import django_heroku
 
 
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'homeapp',
     'account',
+    'sales',
+
 ]
 
 MIDDLEWARE = [

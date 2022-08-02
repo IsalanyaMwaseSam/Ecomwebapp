@@ -1,0 +1,59 @@
+{% extends 'homeapp/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row" >
+    <div class="col-md-4 mt-4">
+        <a style="text-decoration: none;" href="#">
+            <div class="card" style="margin-top: 40px;">
+                <div class="card-header text-white" style="background-color: skyblue; text-align: center;">
+                    Make Deposit
+                </div>
+                <div class="card-body" style="background-color: skyblue;">
+                    <button style="margin-left: 90px; width: 100px;" class="btn btn-danger">Airtel</button>
+                    <button style="width: 100px;" class="btn btn-warning">MTN</button>
+                </div>
+                
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4 mt-4">
+        <a style="text-decoration: none;" href="#">
+            <div class="card" style="margin-top: 40px;">
+                <div class="card-header text-white" style="background-color: skyblue; text-align: center;">
+                    Withdraw
+                </div>
+                <div class="card-body" style="background-color: skyblue;">
+                    <button style="margin-left: 90px; width: 150px;" class="btn btn-success">Make Withdraw</button>
+                </div>
+                
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4 mt-4">
+        <a style="text-decoration: none;" href="#">
+            <div class="card" style="margin-top: 40px;">
+                <div class="card-header text-white" style="background-color: skyblue; text-align: center;">
+                    My Balance
+                </div>
+                <div class="card-body" style="background-color: skyblue;">
+                    <h5 style="text-align: center; color:white;">Balance : ${{balance}}</h5>
+                </div>
+                
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4 mt-4">
+        <a style="text-decoration: none;" href="#">
+            <div class="card" style="margin-top: 40px;">
+                <div class="card-header text-white" style="background-color: skyblue; text-align: center;">
+                    My Transactions
+                </div>
+                <div class="card-body" style="background-color: skyblue;">
+                    <button style="margin-left: 90px; width: 150px;" class="btn btn-success">View Transactions</button>
+                </div>
+                
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}

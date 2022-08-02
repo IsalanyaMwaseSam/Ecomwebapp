@@ -15,10 +15,11 @@
   {% csrf_token %}
   <div class="row justify-content-center" >
       <div class="col-lg-6 col-sm-10">
-          <div class="card" style="margin-top: 20px;height: 1200px; margin-left: 20px;">
+          <div class="card" style="margin-top: 20px;height: 1150px; margin-left: 20px;">
               <div class="card-body">
                 {{ form|crispy }}
-                <input class="btn btn-primary" href="{% url 'login' %}" type="submit" value="Sign Up">
+                <a style="text-decoration: none;" href="#">Agree to terms and conditions</a>
+                <input style="margin-top: 100px; margin-left: -200px" class="btn btn-primary" href="{% url 'login' %}" type="submit" value="Sign Up">
                 </form>
               </div>
           </div>

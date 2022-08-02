@@ -1,0 +1,139 @@
+{% extends 'homeapp/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    @media only screen and (max-width: 1024px){
+      .card{
+        margin-left: 20px;
+      }
+      .card-body .btn{
+        margin-left: auto;
+        width: auto;
+      }
+    }
+</style>
+{% for message in messages %}
+<div style="width: 30%; margin-top: 20px; margin-left: 200px;" class="alert alert-success" role="alert">{{message}}</div>
+{% endfor %}
+{% if user.is_authenticated %}
+<div class="container-fluid pt-5">
+  <div class="row px-xl-5">
+    <div class="card border-secondary mb-5">
+        <div style="background-color: green; color: white;" class="card-header border-0">
+            <h4 class="font-weight-semi-bold m-0">My Cart</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-3 pt-1">
+                {% include 'homeapp/cartsnippet.html' %}
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Payment</h6>
+                <a href="#">
+                  <span class="badge badge-pill danger-color">NOT PAID</span>
+                </a>
+                
+            </div>
+        </div>
+        <div class="card-footer border-secondary bg-transparent">
+            <div class="d-flex justify-content-between mt-2">
+                <h5 class="font-weight-bold">Total</h5>
+                <h5 class="font-weight-bold">${{ order.get_total }}</h5>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-bold">NB:</h6>
+                <h6 style="font-style: italic;" class="font-weight-medium">Shipping fees not yet included</h6>
+            </div>  
+        </div>
+        
+        
+    </div>
+    
+    <div class="row px-xl-5">
+      <div class="card border-secondary mb-5" >
+        <div style="background-color: green; color: white;" class="card-header border-0">
+            <h4 class="font-weight-semi-bold m-0">Payment Method</h4>
+        </div>
+        <div class="card-body">
+            <a style="width: 200px;" href="{% url 'homeapp:checkout' %}" class="btn btn-primary"><i style="margin-right: 5px;" class="fa fa-usd"></i>Mobile Money</a>
+            <a style="margin-left: 40px; width: 200px;" href="{% url 'homeapp:credit_card' %}" class="btn btn-primary">Credit Card</a>
+            <a style="margin-left: 40px; width: 200px;" href="{% url 'homeapp:bank' %}" class="btn btn-primary"><i style="margin-right: 5px;" class="fa fa-bank"></i>Banking</a>
+            <div class="text">
+                <h6 style="margin-top: 15px;"><b>1. Option 1:</b></h6>
+                <p>Ensure that the number you input is in the format "075*******" or "070*******" or "074*******" for Airtel<br>
+                    And "077*******" or "076*******" for MTN.<br>Then click the "Pay Now" button and then check your mobile and confirm the payment request with your PIN</p>    
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-4">
+                    <div class="card" style="width: 250px;">
+                        <div class="card-body">
+                            <h6>Registerd Airtel Number: </h6>
+                            <a style="text-decoration: none;" href="{% url 'homeapp:billing' %}">Change Number</a>
+                            <button style="margin-top: 20px;" class="btn btn-danger" href="#">Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <div class="card" style="width: 250px;">`
+                        <div class="card-body">
+                            <h6>Registerd MTN Number: </h6>
+                            <a style="text-decoration: none;" href="{% url 'homeapp:billing' %}">Change Number</a>
+                            <button style="margin-top: 20px;" class="btn btn-warning" href="#">Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text" style="margin-top: 10px;">
+                <h6 style="margin-top: 15px; "><b>2. Option 2:</b></h6>
+                <p>1. Go to your mobile money menu<br>2. Select send money<br>3. Enter "0705789687" for airtel and "0779857465" for MTN.<br>4. 
+                    Input the cart amount and put your PIN<br>
+                    <h6 style="font-style: italic;"><b>Note that this payment will be confirmed offline</b></h6></p>    
+            </div>
+            <div class="text">
+                <h6 style="margin-top: 15px;"><b>3. Option 3:</b></h6>
+                <p>Pay on delivery<br>
+                    <h6 style="font-style: italic;"><b>NB: Make sure you have changed money because our agents may not have the change</b></h6></p>    
+            </div>
+            
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="row px-xl-5">
+    <div class="card border-secondary mb-5">
+        <div style="background-color: green; color: white;" class="card-header border-0">
+            <h4 class="font-weight-semi-bold m-0">My Billing Information</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-3 pt-1 ">
+                <h6 class="font-weight-medium">Name:</h6>
+                <h6 class="font-weight-medium">{{user.username}}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Email:</h6>
+                <h6 class="font-weight-medium">{{user.email}}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Phone:</h6>
+                <h6 class="font-weight-medium">{{billing.phonenumber}}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Town:</h6>
+                <h6 class="font-weight-medium">{{user.town}}</h6>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <h6 class="font-weight-medium">Address:</h6>
+                <h6 class="font-weight-medium">{{user.address}}</h6>
+            </div>
+            <a style="float: right; background-color: green; margin-top: 10px;" href="{% url 'homeapp:billing' %}" class="btn btn-primary">Edit<i style="margin-left: 5px;" class="fa fa-edit"></i></a>
+            
+        </div>
+        
+    </div>
+</div>
+{% else %}
+
+{% endif%}
+{% endblock %}

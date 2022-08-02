@@ -1,0 +1,28 @@
+{% extends 'homeapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    .card{
+        background-image: url('/static/images/back.jpeg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.9;
+
+    }
+</style>
+<h1 style="text-align: center; letter-spacing: 1px; font-family: Sans-Serif Fonts; font-weight: bolder;">Update your account and start selling with STouch 
+</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="card" style="width: 50%; margin-left: 20%; margin-top: 40px; height: 500px;">
+        <div class="card-body">
+          <div class="form-group">
+            <label style="margin-top: 30px; margin-left: 70px;" for="ProductName">Phone number</label>
+            <input type="text" class="form-control" id="ProductName" name="product_name" placeholder="your mobile phonenumber" required>
+          </div>
+          <input style="margin-top: 100px; width: 80%;" class="btn btn-success" type="button" value="Make Payment">
+        </div>
+    </div>
+</form>
+{% endblock %}
