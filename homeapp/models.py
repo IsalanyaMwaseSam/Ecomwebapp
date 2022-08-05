@@ -151,7 +151,6 @@ class Balance(models.Model):
     balance = models.IntegerField(default=0)
 
 class Billing(models.Model):
-    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     other_names = models.CharField(max_length=50, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
